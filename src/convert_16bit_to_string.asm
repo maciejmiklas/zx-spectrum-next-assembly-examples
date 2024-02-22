@@ -7,21 +7,23 @@
 	CSPECTMAP "project.map"
 
 	ORG $8000
-
-
-
-
-
-
-
-
-
-
-
+;
+;
+;
+;
+;----------------------------------------------------------;
+;          Converts gien 16-bit number to string.          ;
+;----------------------------------------------------------;
+;
+;
+;
+;
 formattedOut:
 	db "00000"								; Contains a number formatted into a string, RAM Address $8000
 
 start:										; Program execution start here - see SAVENEX at the bottom
+	INCLUDE "src/includes/constants.asm"	; Incude contstants
+
 	CALL ROM_CLS         					; Call clear screen routine from ROM.
 
 	LD DE, formattedOut						; Point to output buffor.
@@ -80,17 +82,17 @@ num16ToString
 	LD (DE), A							; A contains the ASCII value of the most significant number, store it in DE.
 	INC DE								; Move DE offset to the next position to store next number
 	RET
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 
-
-
-
-
-
-
-
-
-
-	INCLUDE "src/constants.asm"
 ;
 ; Set up the Nex output
 ;

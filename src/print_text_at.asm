@@ -9,27 +9,40 @@
 	CSPECTMAP "project.map"
 
 	org	$8000
-
-
-
-
-
-
-
-
-
-; The same as 005, but now the text contains all control characters.
+;
+;
+;
+;
+;----------------------------------------------------------------;
+; Print text message at given position by calling a ROM routine. ;
+;----------------------------------------------------------------;
+;
+;
+;
+;
+; 
 message:
-	db PR_AT,8,4,"This is a text message!",CH_ENTER
+	db "This is a text message!",CH_ENTER
 
 MSG_LEN = $ - message						; Message length = [current address in RAM] - [beginning of the message].
 	
 start:										; Program execution start here - see SAVENEX at the bottom
+	INCLUDE "src/includes/constants.asm"	; Incude contstants
+
 	call ROM_CLS         					; Call clear screen routine from ROM.
+
+	LD A, PR_AT								; AT control character
+	RST ROM_PRINT
+
+	LD A, 8									; Y text coordinate (row)
+	RST ROM_PRINT
+
+	LD A, 4									; X text coordinate (collumn)
+	RST ROM_PRINT
 
 
 	; ROM routine expects two parameters: 
-	; - DE: The RAM address containing the text to be printed
+	; - DE: points to the RAM address containing the text to be printed
 	; - BC: contains the number of characters to be printed.
 	LD DE, message							
 	LD BC, MSG_LEN							
@@ -37,17 +50,17 @@ start:										; Program execution start here - see SAVENEX at the bottom
 
 
 	JR	$									; Loop forever!
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 
-
-
-
-
-
-
-
-
-
-	INCLUDE "src/constants.asm"
 ;
 ; Set up the Nex output
 ;

@@ -94,9 +94,14 @@ SPR_ATTR_4			EQU $39
 ; bit 1 = Over border (1 = yes)(Back to 0 after a reset)
 ; bit 0 = Sprites visible (1 = visible)(Back to 0 after a reset)
 SPR_SETUP			EQU $15
+SPR_PORT			EQU $303B
+SPR_JETMAN_ID		EQU $0			; ID of Jetman/Player sprite
 
-SPR_DMA_PORT		EQU $6B			; Datagear DMA Port in zxnDMA mode, https://wiki.specnext.dev/DMA
-SPR_JETMAN_ID		EQU $0			; Jetman/player sprite
+
+;----------------------------------------------------------;
+;                           DMA                            ;
+;----------------------------------------------------------;
+DMA_PORT		EQU $6B				; Datagear DMA Port in zxnDMA mode, https://wiki.specnext.dev/DMA
 
 ;----------------------------------------------------------;
 ;                   Charactes Codes                        ;

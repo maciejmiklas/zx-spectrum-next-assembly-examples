@@ -9,36 +9,37 @@
 		CSPECTMAP "project.map"
 
 		org	$8000
-
-
-
-
-
-
-
-
-
-
-	
-; Set border to green
+;
+;
+;
+;
+;----------------------------------------------------------;
+;  		         Set border to green.	   	               ;
+;----------------------------------------------------------;
+;
+;
+;
+;
 start:										; Program execution start here - see SAVENEX at the bottom
+	INCLUDE "src/includes/constants.asm"	; Incude contstants
+
 	CALL ROM_CLS         					; Call clear screen routine from ROM.
 
 	LD	A, COL_GREEN						; Set A to green.
 	OUT	(BORDER_IO),A						; Change the border to green.
 
 	JR	$									; Loop forever!
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 
-
-
-
-
-
-
-
-
-
-	INCLUDE "src/constants.asm"
 ;
 ; Set up the Nex output
 ;

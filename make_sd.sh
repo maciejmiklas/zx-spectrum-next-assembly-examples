@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Name of the program for compilation
-EXAMPLE_NAME=009-show_sprites.asm
+EXAMPLE_NAME=show_sprite.asm
 
 SD_CARD=/dev/disk6
 CP_FROM=bin/project.nex 

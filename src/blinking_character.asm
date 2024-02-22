@@ -9,18 +9,21 @@
 		CSPECTMAP "project.map"
 
 		org	$8000
-
-
-
-
-
-
-
-
-
-
-; Blinking character
+;
+;
+;
+;
+;----------------------------------------------------------;
+;            Dispalys a blinking character.	   	           ;
+;----------------------------------------------------------;
+;
+;
+;
+;
+; 
 start:										; Program execution start here - see SAVENEX at the bottom
+	INCLUDE "src/includes/constants.asm"	; Incude contstants
+
 	CALL ROM_CLS         					; Call clear screen routine from ROM.
 
 	LD	A, 'X'								; Load "X" into A and print it on the screen.
@@ -33,17 +36,16 @@ start:										; Program execution start here - see SAVENEX at the bottom
 	LD	($5804), A							; Store value from register into 4-th byte of video RAM.	
 	
 	JR	$									; Loop forever!
+;
+;
+;
+;
+;
+;
+;
+;
+;
 
-
-
-
-
-
-
-
-
-
-	INCLUDE "src/constants.asm"
 ;
 ; Set up the Nex output
 ;

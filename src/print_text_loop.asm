@@ -9,54 +9,55 @@
 	CSPECTMAP "project.map"
 
 	org	$8000
-
-
-
-
-
-
-
-
-
-; Print text message at given position by calling a ROM routine.
+;
+;
+;
+;
+;----------------------------------------------------;
+; Print text message by looping over each character. ;
+;----------------------------------------------------;
+;
+;
+;
+;
+; 
 message:
 	db "This is a text message!",CH_ENTER
 
-MSG_LEN = $ - message						; Message length = [current address in RAM] - [beginning of the message].
+msg_len = $ - message						; Message length = [current address in RAM] - [beginning of the message].
 	
 start:										; Program execution start here - see SAVENEX at the bottom
+	INCLUDE "src/includes/constants.asm"	; Incude contstants
 	call ROM_CLS         					; Call clear screen routine from ROM.
 
-	LD A, PR_AT								; AT control character
-	RST ROM_PRINT
-
-	LD A, 8									; Y text coordinate (row)
-	RST ROM_PRINT
-
-	LD A, 4									; X text coordinate (collumn)
-	RST ROM_PRINT
-
-
-	; ROM routine expects two parameters: 
-	; - DE: points to the RAM address containing the text to be printed
-	; - BC: contains the number of characters to be printed.
-	LD DE, message							
-	LD BC, MSG_LEN							
-	CALL ROM_PRINT_TEXT
-
-
+	LD HL, message							; HL points to beginnig of the message.
+	LD B, msg_len							; B contains loop counter to print the message.
+	CALL PrintText
 	JR	$									; Loop forever!
 
+; Prints given text message at the current cursor position..
+; IN:
+;    - HL: beginning of the message
+;    - B:  size of the message 
+; OUT: ASCII string at current cursor position
+PrintText:
+.loop
+	LD A, (HL)								; Load first character into A.
+	RST ROM_PRINT							; Print char from A.
+	INC HL									; Move to the next char.
+	DJNZ .loop								; Keep looping untill B != 0.
+	RET
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 
-
-
-
-
-
-
-
-
-	INCLUDE "src/constants.asm"
 ;
 ; Set up the Nex output
 ;

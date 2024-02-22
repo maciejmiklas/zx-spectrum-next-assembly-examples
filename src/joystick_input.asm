@@ -9,14 +9,17 @@
 	CSPECTMAP "project.map"
 
 	org	$8000
-
-
-
-
-
-
-
-
+;
+;
+;
+;
+;----------------------------------------------------------;
+;  		         Handle Joystick input.	   	               ;
+;----------------------------------------------------------;
+;
+;
+;
+;
 
 ;----------------------------------------------------------;
 ;                     Input processing                     ;
@@ -115,21 +118,24 @@ PressFire
 	RET			
 
 start:										; Program execution start here - see SAVENEX at the bottom
+	INCLUDE "src/includes/constants.asm"	; Incude contstants
+
 	call ROM_CLS         					; Call clear screen routine from ROM.
 	
 gameLoop:	
 	call HandleJoystickInput
 	JR	gameLoop
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
 
-
-
-
-
-
-
-
-
-	INCLUDE "src/constants.asm"
 ;
 ; Set up the Nex output
 ;

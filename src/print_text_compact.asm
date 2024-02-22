@@ -9,51 +9,48 @@
 	CSPECTMAP "project.map"
 
 	org	$8000
-
-
-
-
-
-
-
-
-
-; Print text message by looping over each character at the current cursor position.
+;
+;
+;
+;
+;-------------------------------------------------------------------------------------;
+; The same as "print_text_rom.asm", but now the text contains all control characters. ;
+;-------------------------------------------------------------------------------------;
+;
+;
+;
+;
+; 
 message:
-	db "This is a text message!",CH_ENTER
+	db PR_AT,8,4,"This is a text message!",CH_ENTER
 
-msg_len = $ - message						; Message length = [current address in RAM] - [beginning of the message].
+MSG_LEN = $ - message						; Message length = [current address in RAM] - [beginning of the message].
 	
 start:										; Program execution start here - see SAVENEX at the bottom
+	INCLUDE "src/includes/constants.asm"	; Incude contstants
 	call ROM_CLS         					; Call clear screen routine from ROM.
 
-	LD HL, message							; HL points to beginnig of the message.
-	LD B, msg_len							; B contains loop counter to print the message.
-	CALL PrintText
+
+	; ROM routine expects two parameters: 
+	; - DE: The RAM address containing the text to be printed
+	; - BC: contains the number of characters to be printed.
+	LD DE, message							
+	LD BC, MSG_LEN							
+	CALL ROM_PRINT_TEXT
+
+
 	JR	$									; Loop forever!
-
-; Prints given text message at the current cursor position..
-; IN:
-;    - HL: beginning of the message
-;    - B:  size of the message 
-; OUT: ASCII string at current cursor position
-PrintText:
-.loop
-	LD A, (HL)								; Load first character into A.
-	RST ROM_PRINT							; Print char from A.
-	INC HL									; Move to the next char.
-	DJNZ .loop								; Keep looping untill B != 0.
-	RET
-
-
-
-
-
-
-
-
-
-	INCLUDE "src/constants.asm"
+;
+;
+;
+;
+;
+;
+;
+;
+;
+;
+	INCLUDE "src/includes/constants.asm"
 ;
 ; Set up the Nex output
 ;
