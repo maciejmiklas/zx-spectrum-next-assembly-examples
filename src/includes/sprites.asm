@@ -58,7 +58,8 @@ spriteDMAProgramLength = $ - spriteDMAProgram
 
 
 ; Loads sprites from file into hardware using DMA (https://wiki.specnext.dev/DMA).
-; IN: 
+;
+; Method Parameters:
 ;    - HL - RAM address containing sprite binary data.
 ;    - BC - Number of bytes to copy, i.e. 4 sprites 16x16: "LD BC, 16*16*4".
 LoadSprites:

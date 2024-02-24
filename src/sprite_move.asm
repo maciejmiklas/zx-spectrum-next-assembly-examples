@@ -13,7 +13,7 @@
 ;
 ;
 ;------------------------------------------------------------;
-; Loads sprites from file using DMA and shows first sprite.  ;
+;         Move sprite on X axis with maximum speed.          ;
 ;------------------------------------------------------------;
 ;
 ;
@@ -26,7 +26,13 @@ spritesFile:
 	INCLUDE "src/includes/constants.asm"	; Incude contstants
 	INCLUDE "src/includes/sprites.asm"		; Incude sprites API
 
+xpos 				BYTE 10					; 0-256px
+SPRITE_ID			EQU $0                  
+
 start:										; Program execution start here - see SAVENEX at the bottom
+	
+	NEXTREG REG_TURBO, %00000011    		; Switch to 28MHz
+	
 	LD HL, spritesFile						; Sprites binary data
 	LD BC, 16*16*5							; Copy 5 sprites, each 16x16 pixels
 	CALL LoadSprites						; Load sprites to Hardware
@@ -34,7 +40,7 @@ start:										; Program execution start here - see SAVENEX at the bottom
 	; Sprites are loaded into hardware, now display it
 	NEXTREG SPR_SETUP, %01000011			; Sprite 0 on top, SLU, sprites visible
 
-	NEXTREG SPR_NR, 0						; Setup Player sprite with ID 0
+	NEXTREG SPR_NR, SPRITE_ID				; Use sprite with ID 0
 	LD A, 80								; Set player X position
 	NEXTREG SPR_X, A						
 
@@ -44,7 +50,17 @@ start:										; Program execution start here - see SAVENEX at the bottom
 	NEXTREG SPR_ATTR_2, %00000000 			; Palette offset, no mirror, no rotation
 	NEXTREG SPR_ATTR_3, %10000000			; Visible, no byte 4, pattern 0
 
-	JR $									; Loop indefinieally, to preserve RAM values
+.loop
+	; Update X position
+	LD A, (xpos)	
+	INC A
+	LD (xpos), A
+
+	; Update the position of sprite 0 that we've loaded above.
+	NEXTREG SPR_NR, SPRITE_ID
+	NEXTREG SPR_X, A
+
+	JR .loop
 ;
 ;
 ;

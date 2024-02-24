@@ -11,6 +11,9 @@ REG_TURBO			EQU $07			; bit 1-0 = Turbo (00 = 3.5MHz, 01 = 7MHz, 10 = 14MHz, 11 
 ; bit 0	Enable Layer 2 write-only paging
 REG_L2				EQU $70
 
+REG_SELECT			EQU $243B			; This Port is used to set the register number.
+REG_VL				EQU $1F				; Active video line (LSB).
+
 ;----------------------------------------------------------;
 ;                     ROM routines                         ;
 ;----------------------------------------------------------;
@@ -134,8 +137,3 @@ KB_REG				EQU $FE 				; Activated keyboard input
 
 JOY_MASK			EQU $20 				; Mask to read Kempston input
 JOY_REG				EQU $1F					; Activates Kempston input
-
-;----------------------------------------------------------;
-;               Scanline Synchronization                   ;
-;----------------------------------------------------------;
-DS_SCANLINE			EQU 192			; dsdf

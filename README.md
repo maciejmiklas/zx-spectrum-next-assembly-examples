@@ -8,8 +8,10 @@
 - *print_text_at.asm* - Print text message at given position by calling a ROM routine.
 - *convert_16bit_to_string.asm* - Converts gien 16-bit number to string.
 - *joystick_input.asm* - Handle Joystick input.
-- *show_sprite.asm* - Loads sprites from file using DMA and shows first sprite.
-
+- *sprite_show.asm* - Load sprites from file using DMA and shows few.
+- *sprite_move.asm* - Move sprite on X axis with maximum speed.
+- *sprite_sync.asm* - Move sprite on X axis at 60PFS.
+- *sprite_animate.asm* - Move and animate sprite at 60PFS.
 
 
 Resources:
