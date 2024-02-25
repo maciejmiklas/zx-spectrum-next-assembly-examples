@@ -1,24 +1,20 @@
 ;----------------------------------------------------------;
-;                Display Synchronization                   ;
+;                     #WaitOneFrame                        ;
 ;----------------------------------------------------------;
-; Based on: https://github.com/robgmoran/DougieDoSource
-
-
 ; Pauses executing for single frame, 1/60 or 1/50 of a second.
 ;
 ; The code waits for the given scanline (192) in the first loop, and then in the second loop, it waits again for the same scanline (192). 
 ; This method pauses for the whole frame or a bit more, depending on which scanline display is when calling "WaitOneFrame".
 ; 
-; Method Parameters:
-; - H: Scanline to synch to. 192 for 60FPS, value above/below changes pause time.
-WaitOneFrame:
-     
+; Based on: https://github.com/robgmoran/DougieDoSource
+
+WaitOneFrame:     
 ; Read NextReg $1F - LSB of current raster line.
 	LD BC, REG_SELECT       				; TBBlue Register Select.
 	LD A, REG_VL          					; Port to access - Active Video Line LSB Register.
 	OUT (C), A           					; Select NextReg $1F.
 	INC B               					; TBBlue Register Access.
-	LD A, H									; Set Scanline to wait for.
+	LD A, DI_SYNC_SL						; Set Scanline to wait for.
 	LD D, A
 
 ; Wait for Scanline given by param H, i.e. 192

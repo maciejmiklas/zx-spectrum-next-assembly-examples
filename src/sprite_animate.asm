@@ -23,15 +23,15 @@
 spritesFile:
 	INCBIN "assets/sprites.spr"
 
-	INCLUDE "src/includes/constants.asm"	; Incude contstants
-	INCLUDE "src/includes/sprites.asm"		; Incude sprites API
-	INCLUDE "src/includes/display_sync.asm"	; Display synchronization API
+	INCLUDE "_constants.asm"				; Incude contstants
+	INCLUDE "api_sprite.asm"				; Incude sprites API
+	INCLUDE "api_display.asm"				; Display synchronization API
 
 SPRITE_ID			EQU $0					; ID for our sprite so we can reference it after loading to move it.   
 ANIM_FR				EQU 5					; Change sprite pattern every few frames               
 xpos 				BYTE 10					; 0-256px
 pattern				BYTE 0					; Sprite pattern beetwen 0 and 3
-animCnt				BYTE 0					; The animation counter is used to update the sprite pattern every few FP
+frameCnt			BYTE 0					; The animation counter is used to update the sprite pattern every few FP
 
 start:										; Program execution start here - see SAVENEX at the bottom
 	
@@ -67,15 +67,15 @@ loop
 	NEXTREG SPR_X, A
 
 	; Should we update Sprite pattern?
-	LD A, (animCnt)
+	LD A, (frameCnt)
 	INC A
-	LD (animCnt), A							
+	LD (frameCnt), A							
 
-	CP ANIM_FR								; Wait for #ANIM_FR frames to update the animation pattern.
+	CP ANIM_FR								; Wait until frame counter (just loaded int A) reaches #ANIM_FR.
 	JR C, loop
 
-	LD A, 0									; #animCnt == #ANIM_FR -> reset counter and update the animation pattern.
-	LD (animCnt), A
+	LD A, 0									; #frameCnt == #ANIM_FR -> reset counter and update the animation pattern.
+	LD (frameCnt), A
 
 	; Update sprite pattern - next animation frame
 	LD A, (pattern)							; Load current pattern from RAM into A
@@ -88,9 +88,8 @@ loop
 
 	LD (pattern), A							; Store current pattern into RAM
 
-	OR %10000000							; Set bit 7 for Param 3 to keep sprite visible (see line 53)
-	NEXTREG SPR_ATTR_3, A
-				
+	OR %10000000							; Set bit 7 for Param 3 to keep sprite visible (see "NEXTREG SPR_ATTR_3, %10000000" above)
+	NEXTREG SPR_ATTR_3, A				
 	
 	JR loop
 ;

@@ -22,7 +22,7 @@ formattedOut:
 	db "00000"								; Contains a number formatted into a string, RAM Address $8000
 
 start:										; Program execution start here - see SAVENEX at the bottom
-	INCLUDE "src/includes/constants.asm"	; Incude contstants
+	INCLUDE "_constants.asm"	; Incude contstants
 
 	CALL ROM_CLS         					; Call clear screen routine from ROM.
 

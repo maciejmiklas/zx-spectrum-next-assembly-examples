@@ -23,9 +23,9 @@
 spritesFile:
 	INCBIN "assets/sprites.spr"
 
-	INCLUDE "src/includes/constants.asm"	; Incude contstants
-	INCLUDE "src/includes/sprites.asm"		; Incude sprites API
-	INCLUDE "src/includes/display_sync.asm"	; Display synchronization API
+	INCLUDE "_constants.asm"				; Incude contstants
+	INCLUDE "api_sprite.asm"				; Incude sprites API
+	INCLUDE "api_display.asm"				; Display synchronization API
 
 SPRITE_ID			EQU $0					; ID for our sprite so we can reference it after loading to move it.                  
 xpos 				BYTE 10					; 0-256px

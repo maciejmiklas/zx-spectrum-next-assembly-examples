@@ -23,8 +23,8 @@
 spritesFile:
 	INCBIN "assets/sprites.spr"
 
-	INCLUDE "src/includes/constants.asm"	; Incude contstants
-	INCLUDE "src/includes/sprites.asm"		; Incude sprites API
+	INCLUDE "_constants.asm"				; Incude contstants
+	INCLUDE "api_sprite.asm"				; Incude sprites API
 
 xpos 				BYTE 10					; 0-256px
 SPRITE_ID			EQU $0                  

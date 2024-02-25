@@ -1,4 +1,24 @@
-; DMA is a program that executes in hardware. This program consists of a series of commands from WR0 to WR6. 
+;----------------------------------------------------------;
+;                        #LoadSprites                      ;
+;----------------------------------------------------------;
+; Loads sprites from file into hardware using DMA.
+;
+; Method Parameters:
+;    - HL - RAM address containing sprite binary data.
+;    - BC - Number of bytes to copy, i.e. 4 sprites 16x16: "LD BC, 16*16*4".
+LoadSprites:
+	; Store dynamic values into DMA program
+	LD (spriteDMAPortA), HL					; Copy sprite sheet address from HL
+	LD (spriteDMADataLength), BC			; Copy sprite file lenght into WR0
+
+	; Execute DMA program
+	LD HL, spriteDMAProgram					; Setup source for OTIR
+	LD B, spriteDMAProgramLength 			; Setup length for OTIR
+	LD C, DMA_PORT							; Setup DMA port
+	OTIR									; Upload DMA program and execute
+	RET
+
+; DMA  is a program that executes in hardware. This program consists of a series of commands from WR0 to WR6. 
 ; Each command is a single byte with a unique signature given by setting a few bits:
 ; - WR0: $0'xxxxx'01
 ; - WR1: $0'xxxx'100
@@ -13,6 +33,8 @@
 ; followed by a few parameter bytes, like WR0: DB %0'11111'01 -> DW $C000 -> DW 2048. 
 ; It is the reason for a few labels within the DMA program so that we can inject dynamic data.
 ; Finally OTIR uploads the DMA program to memory through port $xx6B, and it executes.
+;
+; More Info: https://wiki.specnext.dev/DMA
 
 spriteDMAProgram:
 	DB %1'00000'11							; WR6: Disable DMA (last command will re-enable it)
@@ -54,22 +76,4 @@ spriteDMADataLength:
 	DB %1'10011'11
 	DB %1'00001'11							; Again WR6, now enable DMA and copy!
 
-spriteDMAProgramLength = $ - spriteDMAProgram
-
-
-; Loads sprites from file into hardware using DMA (https://wiki.specnext.dev/DMA).
-;
-; Method Parameters:
-;    - HL - RAM address containing sprite binary data.
-;    - BC - Number of bytes to copy, i.e. 4 sprites 16x16: "LD BC, 16*16*4".
-LoadSprites:
-	; Store dynamic values into DMA program
-	LD (spriteDMAPortA), HL					; Copy sprite sheet address from HL
-	LD (spriteDMADataLength), BC			; Copy sprite file lenght into WR0
-
-	; Execute DMA program
-	LD HL, spriteDMAProgram					; Setup source for OTIR
-	LD B, spriteDMAProgramLength 			; Setup length for OTIR
-	LD C, DMA_PORT							; Setup DMA port
-	OTIR									; Upload DMA program and execute
-	RET
+spriteDMAProgramLength = $ - spriteDMAProgram	

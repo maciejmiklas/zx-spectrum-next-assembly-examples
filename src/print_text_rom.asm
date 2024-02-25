@@ -27,7 +27,7 @@ message:
 MSG_LEN = $ - message						; Message length = [current address in RAM] - [beginning of the message].
 	
 start:										; Program execution start here - see SAVENEX at the bottom
-	INCLUDE "src/includes/constants.asm"	; Incude contstants
+	INCLUDE "_constants.asm"	; Incude contstants
 	call ROM_CLS         					; Call clear screen routine from ROM.
 
 	; ROM routine expects two parameters: 

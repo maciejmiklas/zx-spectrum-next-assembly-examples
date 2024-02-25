@@ -27,7 +27,7 @@ ROM_PRINT			EQU $10				; ROM address for "Print Character from A" routine.
 ROM_PRINT_TEXT		EQU $203C
 
 ;----------------------------------------------------------;
-;                  PRINT control codes                     ;
+;                  PRINT Control Codes                     ;
 ;----------------------------------------------------------;
 PR_INK				EQU $10
 PR_PAPER			EQU $11
@@ -137,3 +137,9 @@ KB_REG				EQU $FE 				; Activated keyboard input
 
 JOY_MASK			EQU $20 				; Mask to read Kempston input
 JOY_REG				EQU $1F					; Activates Kempston input
+
+
+;----------------------------------------------------------;
+;                         Display                          ;
+;----------------------------------------------------------;
+DI_SYNC_SL		EQU 192					; Scanline to synch to. 192 for 60FPS, value above/below changes pause time.

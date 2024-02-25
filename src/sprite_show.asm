@@ -23,8 +23,8 @@
 spritesFile:
 	INCBIN "assets/sprites.spr"
 
-	INCLUDE "src/includes/constants.asm"	; Incude contstants
-	INCLUDE "src/includes/sprites.asm"		; Incude sprites API
+	INCLUDE "_constants.asm"				; Incude contstants
+	INCLUDE "api_sprite.asm"				; Incude sprites API
 
 start:										; Program execution start here - see SAVENEX at the bottom
 	LD HL, spritesFile						; Sprites binary data
