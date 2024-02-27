@@ -1,7 +1,7 @@
 ;----------------------------------------------------------;
 ;                  General Registers                       ;
 ;----------------------------------------------------------;
-REG_TURBO				EQU $07				; bit 1-0 = Turbo (00 = 3.5MHz, 01 = 7MHz, 10 = 14MHz, 11 = 28Mhz)
+REG_TURBO				EQU $07					; bit 1-0 = Turbo (00 = 3.5MHz, 01 = 7MHz, 10 = 14MHz, 11 = 28Mhz)
 
 ; bit 7-6 - Video RAM bank select (write/read paging)
 ; bit 5-4 - Reserved, write 0
@@ -11,14 +11,14 @@ REG_TURBO				EQU $07				; bit 1-0 = Turbo (00 = 3.5MHz, 01 = 7MHz, 10 = 14MHz, 1
 ; bit 0	- Enable Layer 2 write-only paging
 REG_LAYER2				EQU $123B
 
-REG_SELECT				EQU $243B			; This Port is used to set the register number.
-REG_VL					EQU $1F				; Active video line (LSB).
+REG_SELECT				EQU $243B				; This Port is used to set the register number.
+REG_VL					EQU $1F					; Active video line (LSB).
 
 ;----------------------------------------------------------;
 ;                     ROM routines                         ;
 ;----------------------------------------------------------;
-ROM_CLS					EQU $0DAF			; ROM address for "Clear Screen" routine.
-ROM_PRINT				EQU $10				; ROM address for "Print Character from A" routine.
+ROM_CLS					EQU $0DAF				; ROM address for "Clear Screen" routine.
+ROM_PRINT				EQU $10					; ROM address for "Print Character from A" routine.
 
 ; ROM address for "Print Text" routine.
 ; IN:
@@ -56,9 +56,9 @@ MMU_SLOT_7 				EQU $57
 ;----------------------------------------------------------;
 ;          		         Sprites	   	                   ;
 ;----------------------------------------------------------;
-SPR_NR					EQU $34				; Sprite Number (R/W)
-SPR_X					EQU $35				; Sprite X coordinate
-SPR_Y					EQU $36				; Sprite Y coordinate
+SPR_NR					EQU $34					; Sprite Number (R/W)
+SPR_X					EQU $35					; Sprite X coordinate
+SPR_Y					EQU $36					; Sprite Y coordinate
 
 ; bits 7-4 = Palette offset added to top 4 bits of sprite colour index
 ; bit 3 = X mirror
@@ -102,12 +102,12 @@ SPR_PORT				EQU $303B
 ;----------------------------------------------------------;
 ;                           DMA                            ;
 ;----------------------------------------------------------;
-DMA_PORT				EQU $6B				; Datagear DMA Port in zxnDMA mode, https://wiki.specnext.dev/DMA
+DMA_PORT				EQU $6B					; Datagear DMA Port in zxnDMA mode, https://wiki.specnext.dev/DMA
 
 ;----------------------------------------------------------;
 ;                   Charactes Codes                        ;
 ;----------------------------------------------------------;
-CH_ENTER				EQU $0D				; Character code for Enter key.
+CH_ENTER				EQU $0D					; Character code for Enter key.
 
 
 ;----------------------------------------------------------;
@@ -127,19 +127,19 @@ COL_WHITE				EQU 7
 ;----------------------------------------------------------;
 ;                     Input processing                     ;
 ;----------------------------------------------------------;
-KB_6_TO_0				EQU $EF				; Mask for keyboard input from 6 to 0 (to read arrow keys: up/down/right).
-KB_5_TO_1				EQU $F7				; Mask for keyboard input from 5 to 1 (to read left arrow key).
-KB_V_TO_Z				EQU $FE				; Mask for keyboard input from V to Z to read X for fire.
+KB_6_TO_0				EQU $EF					; Mask for keyboard input from 6 to 0 (to read arrow keys: up/down/right).
+KB_5_TO_1				EQU $F7					; Mask for keyboard input from 5 to 1 (to read left arrow key).
+KB_V_TO_Z				EQU $FE					; Mask for keyboard input from V to Z to read X for fire.
 
-KB_REG					EQU $FE 			; Activated keyboard input
+KB_REG					EQU $FE 				; Activated keyboard input
 
-JOY_MASK				EQU $20 			; Mask to read Kempston input
-JOY_REG					EQU $1F				; Activates Kempston input
+JOY_MASK				EQU $20 				; Mask to read Kempston input
+JOY_REG					EQU $1F					; Activates Kempston input
 
 ;----------------------------------------------------------;
 ;                         Display                          ;
 ;----------------------------------------------------------;
-DI_SYNC_SL				EQU 192				; Scanline to synch to. 192 for 60FPS, value above/below changes pause time.
-DI_COL_ST				EQU $5800			; Start of Display Color RAM
-DI_COL_EN				EQU $5AFF			; End of Display Color RAM
-DI_COL_SIZE				EQU 768				; Size of color RAM: $5AFF - $5800
+DI_SYNC_SL				EQU 192					; Scanline to synch to. 192 for 60FPS, value above/below changes pause time.
+DI_COL_ST				EQU $5800				; Start of Display Color RAM
+DI_COL_EN				EQU $5AFF				; End of Display Color RAM
+DI_COL_SIZE				EQU 768					; Size of color RAM: $5AFF - $5800
