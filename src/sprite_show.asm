@@ -27,6 +27,8 @@ spritesFile:
 	INCLUDE "api_sprite.asm"				; Incude sprites API
 
 start:										; Program execution start here - see SAVENEX at the bottom
+	CALL ROM_CLS         					; Call clear screen routine from ROM.
+	
 	LD HL, spritesFile						; Sprites binary data
 	LD BC, 16*16*63							; Copy 63 sprites, each 16x16 pixels
 	CALL LoadSprites						; Load sprites to Hardware

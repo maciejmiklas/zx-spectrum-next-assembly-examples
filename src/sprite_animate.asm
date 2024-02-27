@@ -34,7 +34,8 @@ pattern				BYTE 0					; Sprite pattern beetwen 0 and 3
 frameCnt			BYTE 0					; The animation counter is used to update the sprite pattern every few FP
 
 start:										; Program execution start here - see SAVENEX at the bottom
-	
+	CALL ROM_CLS         					; Call clear screen routine from ROM.
+
 	NEXTREG REG_TURBO, %00000011    		; Switch to 28MHz
 
 	LD HL, spritesFile						; Sprites binary data

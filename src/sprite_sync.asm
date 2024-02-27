@@ -31,7 +31,8 @@ SPRITE_ID			EQU $0					; ID for our sprite so we can reference it after loading 
 xpos 				BYTE 10					; 0-256px
 
 start:										; Program execution start here - see SAVENEX at the bottom
-	
+	CALL ROM_CLS         					; Call clear screen routine from ROM.
+		
 	NEXTREG REG_TURBO, %00000011    		; Switch to 28MHz
 
 	LD HL, spritesFile						; Sprites binary data
